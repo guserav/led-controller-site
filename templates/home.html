@@ -7,5 +7,10 @@
         <a href="{{ url_for('recover') }}" class="btn btn-success">Recover</a>
         <a href="{{ url_for('turnoff') }}" class="btn btn-danger">Turnoff</a>
     </div>
+    <div  class='col'>
+        <h1> L </h1>
+        <a href="{{ url_for('l_step', step=-100) }}" class="btn btn-danger">-</a>
+        <a href="{{ url_for('l_step', step=100) }}" class="btn btn-success">+</a>
+    </div>
 </div>
 {% endblock %}

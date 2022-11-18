@@ -1,6 +1,8 @@
 import flask
 import functools
+import json
 import paho.mqtt.client as mqtt
+import paho.mqtt.publish as publish
 from os.path import expanduser
 
 
@@ -9,6 +11,7 @@ app = flask.Flask(__name__)
 CONF_FILE = expanduser('~/.config/led_controller_web/config.ini')
 BROKER = "jackson"
 TOPIC = "/topic/esp32_led"
+
 
 class NavItem():
     def __init__(self, internal, name):
@@ -68,3 +71,10 @@ def turnoff(client=None):
 @wrapCalls('recover')
 def recover(client=None):
     client.publish(TOPIC, 'recover')
+
+
+@app.route('/l_step/<step>')
+@wrapCon
+@wrapCalls('step')
+def l_step(step, client=None):
+    publish.single("dimmer", json.dumps({"step": int(step)}), hostname="192.168.178.67")
